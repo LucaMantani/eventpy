@@ -152,6 +152,10 @@ class Particle:
         return np.array([self._E, self._px, self._py, self._pz])
 
     @property
+    def mom3(self):
+        return np.array([self._px, self._py, self._pz])
+
+    @property
     def p3(self):
         return np.sqrt(self._px ** 2 + self._py ** 2 + self._pz ** 2)
 
@@ -186,6 +190,15 @@ class Particle:
     @property
     def phi(self):
         return np.arctan2(self._py, self._px)
+
+    def isin(self, particles):
+        for particle in particles:
+            if self._pdg == particle.pdg:
+                return True
+        return False
+
+    def is_pdg(self, pdg):
+        return self._pdg == pdg
 
     def __str__(self):
         return "\nParticle information:\n" +\
