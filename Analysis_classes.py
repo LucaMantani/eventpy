@@ -1,5 +1,6 @@
 import numpy as np
 from bs4 import BeautifulSoup
+from Analysis_functions import *
 
 
 class Process:
@@ -114,6 +115,7 @@ class Particle:
             self._E = float(particle_info[9])
             self._M = float(particle_info[10])
             self._ctau = float(particle_info[11])
+            self._DV = self._ctau * versor(self.mom3)
 
     @property
     def pdg(self):
@@ -191,6 +193,10 @@ class Particle:
     def phi(self):
         return np.arctan2(self._py, self._px)
 
+    @property
+    def DV(self):
+        return self._DV
+
     def isin(self, particles):
         for particle in particles:
             if self._pdg == particle.pdg:
@@ -199,6 +205,9 @@ class Particle:
 
     def is_pdg(self, pdg):
         return self._pdg == pdg
+
+    def set_DV(self, DV):
+        self._DV = DV
 
     def __str__(self):
         return "\nParticle information:\n" +\
