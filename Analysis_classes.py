@@ -209,6 +209,10 @@ class Particle:
     def set_DV(self, DV):
         self._DV = DV
 
+    def delta_R(self, particle):
+        return np.sqrt((self.eta - particle.eta)**2 +
+                       (self.phi - particle.phi)**2)
+
     def __str__(self):
         return "\nParticle information:\n" +\
                "pdg: %i\n" % self.pdg +\
