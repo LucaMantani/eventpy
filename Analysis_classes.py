@@ -1,6 +1,7 @@
 import numpy as np
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 from Analysis_functions import *
+import xml.etree.ElementTree as ET
 
 
 class Process:
@@ -26,16 +27,30 @@ class Process:
 
             self._cross_section = sum([event.weight for event in self.events])
 
+    # def read_lhe(self, txt_file):
+
+    #     with open(txt_file, 'r') as f:
+    #         soup = BeautifulSoup(f, "lxml")
+
+    #         events = []
+
+    #         for event in soup.find_all('event'):
+    #             events.append(Event(event.string.strip('\n').split('\n'),
+    #                                 'lhe'))
+
+    #     return events
+
     def read_lhe(self, txt_file):
 
-        with open(txt_file, 'r') as f:
-            soup = BeautifulSoup(f, "lxml")
+        events = []
 
-            events = []
+        try:
+            for event, element in ET.iterparse(txt_file, events=['end']):
+                if element.tag == 'event':
+                    events.append(Event(element.text.split('\n')[1:-1], 'lhe'))
 
-            for event in soup.find_all('event'):
-                events.append(Event(event.string.strip('\n').split('\n'),
-                                    'lhe'))
+        except ET.ParseError:
+            return events
 
         return events
 
