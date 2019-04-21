@@ -14,39 +14,46 @@ class Process:
 
     def __init__(self, txt_file):
 
-        file_format = txt_file.split('.')[-1]
+        self.file_format = txt_file.split('.')[-1]
 
-        if file_format not in Process.supported_file_formats:
-            print("File format %s not recognised." % file_format)
-        else:
-            if file_format == 'lhe':
-                self.events = self.read_lhe(txt_file)
+        self.txt_file = txt_file
 
-            self._num_events = len(self.events)
+        if self.file_format not in Process.supported_file_formats:
+            print("File format %s not recognised." % self.file_format)
 
-            self._cross_section = sum([event.weight for event in self.events])
+        self._num_events = None
+
+        self._cross_section = None
 
 
     def read_lhe(self, txt_file):
 
-        events = []
-
         try:
             for event, element in ET.iterparse(txt_file, events=['end']):
                 if element.tag == 'event':
-                    events.append(Event(element.text.split('\n')[1:-1], 'lhe'))
+                    yield Event(element.text.split('\n')[1:-1], 'lhe')
 
         except ET.ParseError:
-            return events
+            return
+            
 
-        return events
+    @property
+    def events(self):
+        if self.file_format == 'lhe':
+            return self.read_lhe(self.txt_file)
+    
 
     @property
     def num_events(self):
+        if not self._num_events:
+            self._num_events = sum(1 for event in self.events)
+
         return self._num_events
 
     @property
     def cross_section(self):
+        if not self._cross_section:
+            self._cross_section = sum(event.weight for event in self.events)
         return self._cross_section
 
     def __str__(self):
