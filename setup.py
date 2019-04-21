@@ -1,11 +1,11 @@
 from setuptools import setup
 
-setup(name='pyEventReader',
+setup(name='eventpy',
       version='0.1',
       description='Classes and functions to read and analyse HEP event files.',
-      url='http://github.com/LucaMantani/pyEventReader',
+      url='http://github.com/LucaMantani/eventpy',
       author='Luca Mantani',
       author_email='luca.mantani@gmail.com',
       license='MIT',
-      packages=['pyEventReader'],
+      packages=['eventpy'],
       zip_safe=False)
