@@ -25,10 +25,10 @@ class Process:
 
         self._cross_section = None
 
-    def read_lhe(self, txt_file):
+    def read_lhe(self):
 
         try:
-            for event, element in ET.iterparse(txt_file, events=['end']):
+            for event, element in ET.iterparse(self.txt_file, events=['end']):
                 if element.tag == 'event':
                     yield Event(element.text.split('\n')[1:-1], 'lhe')
 
@@ -38,7 +38,7 @@ class Process:
     @property
     def events(self):
         if self.file_format == 'lhe':
-            return self.read_lhe(self.txt_file)
+            return self.read_lhe()
 
     @property
     def num_events(self):
