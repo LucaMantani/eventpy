@@ -14,7 +14,7 @@ def versor(p):
     Returns the versor of the vector.
     """
     mod = np.linalg.norm(p)
-    return p / mod if mod !=0 else 0.0
+    return p / mod if mod != 0 else 0.0
 
 
 def get_particles(particles, pdg):

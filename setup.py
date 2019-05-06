@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='eventpy',
-      version='0.1',
+      version='0.2',
       description='Classes and functions to read and analyse HEP event files.',
       url='http://github.com/LucaMantani/eventpy',
       author='Luca Mantani',

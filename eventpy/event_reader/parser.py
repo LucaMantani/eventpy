@@ -25,7 +25,6 @@ class Process:
 
         self._cross_section = None
 
-
     def read_lhe(self, txt_file):
 
         try:
@@ -35,13 +34,11 @@ class Process:
 
         except ET.ParseError:
             return
-            
 
     @property
     def events(self):
         if self.file_format == 'lhe':
             return self.read_lhe(self.txt_file)
-    
 
     @property
     def num_events(self):
