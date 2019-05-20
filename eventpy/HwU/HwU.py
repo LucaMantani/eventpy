@@ -2,6 +2,10 @@ import pandas as pd
 
 
 class HwU_parser:
+    """
+    This is a class that reads a HwU file produced by NLO FixedOrder analysis
+    in Madgraph.
+    """
 
     def __init__(self, file):
 
@@ -9,18 +13,23 @@ class HwU_parser:
         self.histograms = self.read()
 
     def read(self):
-        
+
         with open(self.file, 'r') as f:
             in_hist = False
             histograms = []
             hist = []
+            title = ""
             for x in f:
                 if x.startswith("##"):
-                    self.entries_info = x.lstrip("##& ").rstrip("\n").split("&")
+                    self.entries_info = x.lstrip("##& ")\
+                                        .rstrip("\n").split(" & ")
 
                 if x.startswith(r"<\histogram>"):
-                    histograms.append(Histogram(hist, self.entries_info, title))
+                    histograms.append(Histogram(hist,
+                                                self.entries_info,
+                                                title))
                     hist = []
+                    title = ""
                     in_hist = False
 
                 if in_hist:
@@ -33,11 +42,12 @@ class HwU_parser:
             return histograms
 
 
-
 class Histogram:
+    """
+    Histogram class for HwU hisograms.
+    """
 
     def __init__(self, data, data_info, title):
-        # print(data)
-        self.data = pd.DataFrame(data, columns=data_info, dtype=float)
-        self.data.name = title
 
+        self.data = pd.DataFrame(data, columns=data_info, dtype=float)
+        self.name = title

@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(name='eventpy',
       version='0.2',
@@ -7,5 +7,5 @@ setup(name='eventpy',
       author='Luca Mantani',
       author_email='luca.mantani@gmail.com',
       license='MIT',
-      packages=['eventpy'],
+      packages=find_packages(),
       zip_safe=False)
