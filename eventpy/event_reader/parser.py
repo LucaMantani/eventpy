@@ -99,7 +99,7 @@ class Event:
         return self._tot_particles
 
     def __str__(self):
-        return "\nEvent weight: %f\nTotal number of particles: %i\n"\
+        return "\nEvent weight: %e\nTotal number of particles: %i\n"\
                 % (self.weight, self.tot_particles) +\
                ''.join([particle.__str__() for particle in self.particles])
 
