@@ -27,9 +27,9 @@ def highest_pt_pdg(event, pdg, n=1):
     Returns: a list of Particle class. If n=1, the single
     object will be returned.
     """
-    jets = get_particles(event.final_states, pdg)
+    particles = get_particles(event.final_states, pdg)
 
     if n == 1:
-        return sorted(jets, key=lambda x: x.pT, reverse=True)[0]
+        return sorted(particles, key=lambda x: x.pT, reverse=True)[0]
     else:
-        return sorted(jets, key=lambda x: x.pT, reverse=True)[:n]
+        return sorted(particles, key=lambda x: x.pT, reverse=True)[:n]

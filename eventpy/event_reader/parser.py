@@ -49,6 +49,9 @@ class Process:
 
     @property
     def cross_section(self):
+        warn = "WARNING: The cross section is computed assuming that " +\
+               "the event weights are normalised to the total cross section."
+        print("\33[34m" + warn + "\033[0m")
         if not self._cross_section:
             self._cross_section = sum(event.weight for event in self.events)
         return self._cross_section
