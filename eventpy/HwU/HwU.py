@@ -24,6 +24,9 @@ class HwU_parser:
                     self.entries_info = x.lstrip("##& ")\
                                         .rstrip("\n").split(" & ")
 
+                    if self.entries_info[-1] == '':
+                        self.entries_info = self.entries_info[:-1]
+
                 if x.startswith(r"<\histogram>"):
                     histograms.append(Histogram(hist,
                                                 self.entries_info,
