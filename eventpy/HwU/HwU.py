@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 class HwU_parser:
@@ -58,3 +59,7 @@ class Histogram:
     def __str__(self):
 
         return self.name + "\n" + self.data.__str__()
+
+    def bins(self):
+        return np.append(self.data.loc[:, "xmin"].values,
+                         (self.data.loc[:, "xmax"].values[-1]))
