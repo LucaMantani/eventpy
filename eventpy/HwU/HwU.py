@@ -54,3 +54,7 @@ class Histogram:
 
         self.data = pd.DataFrame(data, columns=data_info, dtype=float)
         self.name = title
+
+    def __str__(self):
+
+        return self.name + "\n" + self.data.__str__()
