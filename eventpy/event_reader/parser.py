@@ -28,9 +28,17 @@ class Process:
     def read_lhe(self):
 
         try:
+            event_txt = None
+            weights = []
             for event, element in ET.iterparse(self.txt_file, events=['end']):
                 if element.tag == 'event':
-                    yield Event(element.text.split('\n')[1:-1], 'lhe')
+                    if event_txt:
+                        yield Event(element.text.split('\n')[1:-1], weights, 'lhe')
+                    event_txt = element.text.split('\n')[1:-1]
+                    weights = []
+                if element.tag == 'wgt':
+                    weights.append(float(element.text))
+
 
         except ET.ParseError:
             return
@@ -70,7 +78,7 @@ class Event:
     Return: object of the class.
     """
 
-    def __init__(self, event, event_type):
+    def __init__(self, event, weights, event_type):
 
         if event_type == 'lhe':
 
@@ -79,6 +87,8 @@ class Event:
             self._weight = float(general_info[2])
 
             self.particles = []
+
+            self.weights = weights
 
             for line in event[1:]:
                 line = line.strip().split()
