@@ -48,7 +48,7 @@ class HwU_parser:
 
 class Histogram:
     """
-    Histogram class for HwU hisograms.
+    Histogram class for HwU histograms.
     """
 
     def __init__(self, data, data_info, title):

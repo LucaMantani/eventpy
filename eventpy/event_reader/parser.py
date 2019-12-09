@@ -28,16 +28,15 @@ class Process:
     def read_lhe(self):
 
         try:
-            event_txt = None
             weights = []
             for event, element in ET.iterparse(self.txt_file, events=['end']):
-                if element.tag == 'event':
-                    if event_txt:
-                        yield Event(element.text.split('\n')[1:-1], weights, 'lhe')
-                    event_txt = element.text.split('\n')[1:-1]
-                    weights = []
+
                 if element.tag == 'wgt':
-                    weights.append(float(element.text))
+                        weights.append(float(element.text))
+
+                if element.tag == 'event':
+                    yield Event(element.text.split('\n')[1:-1], weights, 'lhe')
+                    weights = []
 
 
         except ET.ParseError:
