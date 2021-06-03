@@ -133,6 +133,7 @@ class Particle:
             self._E = float(particle_info[9])
             self._M = float(particle_info[10])
             self._ctau = float(particle_info[11])
+            self._hel = float(particle_info[12])
             self._DV = self._ctau * versor(self.mom3)
 
     @property
@@ -166,6 +167,10 @@ class Particle:
     @property
     def ctau(self):
         return self._ctau
+
+    @property
+    def hel(self):
+        return self._hel
 
     @property
     def mom(self):
@@ -240,4 +245,6 @@ class Particle:
                "pz: %f\n" % self.pz +\
                "E: %f\n" % self.E +\
                "M: %f\n" % self.M +\
-               "ctau: %f\n" % self.ctau
+               "ctau: %f\n" % self.ctau +\
+               "helicity: %f\n" % self.hel
+ 
