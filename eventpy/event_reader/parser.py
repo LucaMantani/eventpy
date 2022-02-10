@@ -32,7 +32,7 @@ class Process:
             for event, element in ET.iterparse(self.txt_file, events=['end']):
 
                 if element.tag == 'wgt':
-                        weights.append(float(element.text))
+                    weights.append(float(element.text))
 
                 if element.tag == 'event':
                     yield Event(element.text.split('\n')[1:-1], weights, 'lhe')
